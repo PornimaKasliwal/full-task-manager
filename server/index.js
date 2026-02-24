@@ -27,8 +27,11 @@ const app = express()
 
 mongoose.connect(process.env.MONGO_URL)
 
+
+app.use("/api/auth", require("./routes/auth.routes.js"))
+
 app.get("/", (req, res) => {
-    res.status(200).json({ message: "TASK MANAGER API RUNNING.." })
+    res.status(200).json({ message: `TASK MANAGER API RUNNINGin ${process.env.NODE_ENV} mode`})
 })
 
 mongoose.connection.once("open", () => {
@@ -39,4 +42,5 @@ mongoose.connection.once("open", () => {
         console.log(`mode: ${process.env.NODE_ENV}`)
     })
 })
+
 module.exports = app
