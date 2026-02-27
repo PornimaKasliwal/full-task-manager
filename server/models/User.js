@@ -9,4 +9,9 @@ module.exports = mongoose.model("user", new mongoose.Schema({
     role:{type:String, enumn:["admin","employee"] ,default:"employee"}, 
     profilePic:{type:String}, 
 
+    otp :{type:String},
+    otpSendOn:{type:Date},
+    accessToken:{type:String},
+    isDelete:{type:Boolean, default:false}
+
 },{timestamps:true}))
