@@ -2,7 +2,7 @@ const express = require("express")
 const mongoose = require("mongoose")
 const cors = require("cors")
 const cookieParser = require("cookie-parser")
-const { adminProtect } = require("./middlewares/auth.middlewares.js")
+const {  protect } = require("./middlewares/auth.middlewares.js")
 require("dotenv").config()
 
 const app = express()
@@ -13,7 +13,8 @@ app.use(express.json())
 app.use (cookieParser())
 
 app.use("/api/auth", require("./routes/auth.routes.js"))
-app.use("/api/admin", adminProtect, require("./routes/admin.routes.js"))
+app.use("/api/admin", protect("admin"), require("./routes/admin.routes.js"))
+app.use("/api/employee", protect("employee"), require("./routes/employee.routes.js"))
 
 app.use("/", (req, res) => {
     res.status(404).json({ message: `Resource not found ${req.method} ${req.path}` })
